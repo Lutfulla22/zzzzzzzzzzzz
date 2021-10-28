@@ -185,7 +185,7 @@ namespace bot
                         var times = result.prayerTime;
                         await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: getTimeString(times),
+                        text: getTimeString(times, message),
                         parseMode: ParseMode.Markdown,
                         replyMarkup: MessageBuilder.LocationRequestButtonEn());
                     }
@@ -196,7 +196,7 @@ namespace bot
                         var times = result.prayerTime;
                         await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: getTimeString(times),
+                        text: getTimeString(times, message),
                         parseMode: ParseMode.Markdown,
                         replyMarkup: MessageBuilder.LocationRequestButtonRu());
                     }
@@ -207,7 +207,7 @@ namespace bot
                         var times = result.prayerTime;
                         await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: getTimeString(times),
+                        text: getTimeString(times, message),
                         parseMode: ParseMode.Markdown,
                         replyMarkup: MessageBuilder.LocationRequestButtonUz());
                     }
@@ -215,8 +215,18 @@ namespace bot
             }
         }
 
-        public string getTimeString(Models.PrayerTime times)
-            => $" *Fajr*: {times.Fajr}\n*Sunrise*: {times.Sunrise}\n*Dhuhr*: {times.Dhuhr}\n*Asr*: {times.Asr}\n*Maghrib*: {times.Maghrib}\n*Isha*: {times.Isha}\n*Midnight*: {times.Midnight}\n\n*Method*: {times.CalculationMethod}";
+        public string getTimeString(Models.PrayerTime times, Message message)
+        {
+            if (_storage.GetUserAsync(message.Chat.Id).Result.Language == "English")
+            {
+                return $" *Fajr*: {times.Fajr}\n*Sunrise*: {times.Sunrise}\n*Dhuhr*: {times.Dhuhr}\n*Asr*: {times.Asr}\n*Maghrib*: {times.Maghrib}\n*Isha*: {times.Isha}\n\n*Method*: {times.CalculationMethod}";
+            }
+            else if (_storage.GetUserAsync(message.Chat.Id).Result.Language == "Русский")
+            {
+                return $" *Фажр*: {times.Fajr}\n*Восход*: {times.Sunrise}\n*Зухр*: {times.Dhuhr}\n*Аср*: {times.Asr}\n*Магриб*: {times.Maghrib}\n*Иша*: {times.Isha}\n\n*Method*: {times.CalculationMethod}";
+            }
+            return $" *Bomdod*: {times.Fajr}\n*Quyosh chiqishi*: {times.Sunrise}\n*Peshin*: {times.Dhuhr}\n*Asr*: {times.Asr}\n*Shom*: {times.Maghrib}\n*Xufton*: {times.Isha}\n\n*Method*: {times.CalculationMethod}";
+        }
 
     }
 }
