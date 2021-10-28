@@ -8,7 +8,7 @@ using bot.Entity;
 namespace bot.Migrations
 {
     [DbContext(typeof(BotDbContext))]
-    [Migration("20211028135758_InitialCreate")]
+    [Migration("20211028145341_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace bot.Migrations
 
                     b.Property<string>("Fullname")
                         .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Language")
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Latitude")

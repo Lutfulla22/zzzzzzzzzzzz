@@ -16,7 +16,8 @@ namespace bot.Migrations
                     Fullname = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     Longitude = table.Column<double>(type: "REAL", nullable: false),
                     Latitude = table.Column<double>(type: "REAL", nullable: false),
-                    Address = table.Column<string>(type: "TEXT", nullable: true)
+                    Address = table.Column<string>(type: "TEXT", nullable: true),
+                    Language = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -17,7 +17,7 @@ namespace bot
         private readonly ICacheService _cache;
 
         public Handlers(
-            ILogger<Handlers> logger, 
+            ILogger<Handlers> logger,
             IStorageService storage,
             ICacheService cache)
         {
@@ -55,9 +55,9 @@ namespace bot
             {
                 await handler;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-
+                _logger.LogInformation($"{e.Message}");
             }
         }
     }

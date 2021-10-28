@@ -28,6 +28,9 @@ namespace bot.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Language")
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
 
