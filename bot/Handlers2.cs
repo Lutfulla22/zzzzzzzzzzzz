@@ -85,12 +85,30 @@ namespace bot
                     }
 
                 }
-
-                await client.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    "Select day",
-                    parseMode: ParseMode.Markdown,
-                    replyMarkup: MessageBuilder.MenuShow(_storage.GetUserAsync(message.Chat.Id).Result.Language));
+                if (_storage.GetUserAsync(message.Chat.Id).Result.Language == "English")
+                {
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        "Select day",
+                        parseMode: ParseMode.Markdown,
+                        replyMarkup: MessageBuilder.MenuShow(_storage.GetUserAsync(message.Chat.Id).Result.Language));
+                }
+                else if (_storage.GetUserAsync(message.Chat.Id).Result.Language == "Русский")
+                {
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        "Выберите день",
+                        parseMode: ParseMode.Markdown,
+                        replyMarkup: MessageBuilder.MenuShow(_storage.GetUserAsync(message.Chat.Id).Result.Language));
+                }
+                else if (_storage.GetUserAsync(message.Chat.Id).Result.Language == "O'zbek")
+                {
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        "Kunni tanlang",
+                        parseMode: ParseMode.Markdown,
+                        replyMarkup: MessageBuilder.MenuShow(_storage.GetUserAsync(message.Chat.Id).Result.Language));
+                }
             }
             switch (message.Text)
             {
