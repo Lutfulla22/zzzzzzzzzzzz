@@ -21,7 +21,7 @@ namespace bot
 
         public static ReplyKeyboardMarkup MenuShow(string language)
         {
-            if(language == "O'zbek")
+            if (language == "O'zbek")
             {
                 return new ReplyKeyboardMarkup()
                 {
@@ -33,10 +33,10 @@ namespace bot
                                         new KeyboardButton(){ Text = "Orqaga"},
                                     }
                                 },
-                                ResizeKeyboard=true
+                    ResizeKeyboard = true
                 };
             }
-            else if(language == "Русский")
+            else if (language == "Русский")
             {
                 return new ReplyKeyboardMarkup()
                 {
@@ -48,12 +48,12 @@ namespace bot
                                         new KeyboardButton(){ Text = "Назад"}
                                     }
                                 },
-                                ResizeKeyboard=true
+                    ResizeKeyboard = true
                 };
             }
-                return new ReplyKeyboardMarkup()
-                {
-                    Keyboard = new List<List<KeyboardButton>>()
+            return new ReplyKeyboardMarkup()
+            {
+                Keyboard = new List<List<KeyboardButton>>()
                                 {
                                     new List<KeyboardButton>()
                                     {
@@ -61,35 +61,54 @@ namespace bot
                                         new KeyboardButton(){ Text = "Back"}
                                     }
                                 },
-                                ResizeKeyboard=true
-                };
+                ResizeKeyboard = true
+            };
         }
-        public static ReplyKeyboardMarkup DateButtonRu()
-            => new ReplyKeyboardMarkup()
+        public static ReplyKeyboardMarkup LocationRequestButton(string language)
+        {
+            if (language == "O'zbek")
+            {
+                return new ReplyKeyboardMarkup()
+                {
+                    Keyboard = new List<List<KeyboardButton>>()
+                                {
+                                    new List<KeyboardButton>()
+                                    {
+                                        new KeyboardButton(){ Text = "Lokatsiya jo'nati", RequestLocation = true },
+                                        new KeyboardButton(){ Text = "Orqaga"},
+                                    }
+                                },
+                    ResizeKeyboard = true
+                };
+            }
+            else if (language == "Русский")
+            {
+                return new ReplyKeyboardMarkup()
+                {
+                    Keyboard = new List<List<KeyboardButton>>()
+                                {
+                                    new List<KeyboardButton>()
+                                    {
+                                        new KeyboardButton(){ Text = "Поделиться локацией", RequestLocation = true },
+                                        new KeyboardButton(){ Text = "Назад"}
+                                    }
+                                },
+                    ResizeKeyboard = true
+                };
+            }
+            return new ReplyKeyboardMarkup()
             {
                 Keyboard = new List<List<KeyboardButton>>()
                             {
                                 new List<KeyboardButton>()
                                 {
-                                    new KeyboardButton(){ Text = "Сегодняшний" },
-                                    new KeyboardButton(){ Text = "Назад" },
+                                    new KeyboardButton(){ Text = "Share location", RequestLocation = true },
+                                    new KeyboardButton(){ Text = "Back"}
                                 }
                             },
                 ResizeKeyboard = true
             };
-        public static ReplyKeyboardMarkup DateButtonUz()
-            => new ReplyKeyboardMarkup()
-            {
-                Keyboard = new List<List<KeyboardButton>>()
-                            {
-                                new List<KeyboardButton>()
-                                {
-                                    new KeyboardButton(){ Text = "Bugungi" },
-                                    new KeyboardButton(){ Text = "Orqaga" },
-                                }
-                            },
-                ResizeKeyboard = true
-            };
+        }
         public static ReplyKeyboardMarkup LanguagesButton()
             => new ReplyKeyboardMarkup()
             {
@@ -100,46 +119,6 @@ namespace bot
                                     new KeyboardButton(){ Text = "English" },
                                     new KeyboardButton(){ Text = "O'zbek" },
                                     new KeyboardButton(){ Text = "Русский" }
-                                }
-                            },
-                ResizeKeyboard = true
-            };
-        public static ReplyKeyboardMarkup LocationRequestButtonRu()
-            => new ReplyKeyboardMarkup()
-            {
-                Keyboard = new List<List<KeyboardButton>>()
-                            {
-                                new List<KeyboardButton>()
-                                {
-                                    new KeyboardButton(){ Text = "Поделиться локацией", RequestLocation = true },
-                                    new KeyboardButton(){ Text = "Назад" } 
-                                }
-                            },
-                ResizeKeyboard = true
-            };
-        public static ReplyKeyboardMarkup LocationRequestButtonEn()
-            => new ReplyKeyboardMarkup()
-            {
-                Keyboard = new List<List<KeyboardButton>>()
-                            {
-                                new List<KeyboardButton>()
-                                {
-                                    new KeyboardButton(){ Text = "Share location", RequestLocation = true },
-                                    new KeyboardButton(){ Text = "Back" } 
-                                }
-                            },
-                ResizeKeyboard = true
-            };
-
-        public static ReplyKeyboardMarkup LocationRequestButtonUz()
-            => new ReplyKeyboardMarkup()
-            {
-                Keyboard = new List<List<KeyboardButton>>()
-                            {
-                                new List<KeyboardButton>()
-                                {
-                                    new KeyboardButton(){ Text = "Lokatsiya jo'natish", RequestLocation = true },
-                                    new KeyboardButton(){ Text = "Orqaga" } 
                                 }
                             },
                 ResizeKeyboard = true
