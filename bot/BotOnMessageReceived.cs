@@ -105,65 +105,32 @@ namespace bot
                     var userEnglish = await _storage.GetUserAsync(message.Chat.Id);
                     userEnglish.Language = "English";
                     await _storage.UpdateUserAsync(userEnglish);
-
-                    await client.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        parseMode: ParseMode.Markdown,
-                        text: "Assalomu aleykum, Can you share your location?",
-                        replyMarkup: MessageBuilder.LocationRequestButton(
-                            _storage.GetUserAsync(message.Chat.Id).Result.Language));
+                    await getLanguageMessageTextAsync(client, "Assalomu aleykum, Can you share your location?", message); break; break;
                     break;
 
                 case "Русский":
                     var userRussian = await _storage.GetUserAsync(message.Chat.Id);
                     userRussian.Language = "Русский";
                     await _storage.UpdateUserAsync(userRussian);
-                    await client.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        parseMode: ParseMode.Markdown,
-                        text: "Ассалому алейкум, Можете отправить вашу локацию?",
-                        replyMarkup: MessageBuilder.LocationRequestButton(
-                            _storage.GetUserAsync(message.Chat.Id).Result.Language)); break;
+                    await getLanguageMessageTextAsync(client, "Ассалому алейкум, Можете отправить вашу локацию?", message); break; break;
                 case "O'zbek":
                     var userOzbek = await _storage.GetUserAsync(message.Chat.Id);
                     userOzbek.Language = "O'zbek";
                     await _storage.UpdateUserAsync(userOzbek);
-                    await client.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        parseMode: ParseMode.Markdown,
-                        text: "Assalomu aleykum, Lokatsiyangizni jo'nata olasizmi?",
-                        replyMarkup: MessageBuilder.LocationRequestButton(
-                            _storage.GetUserAsync(message.Chat.Id).Result.Language)); break;
+                    await getLanguageMessageTextAsync(client, "Assalomu aleykum, Lokatsiyangizni jo'nata olasizmi?", message); break;
                 case "Back":
-                    await client.SendTextMessageAsync(
-                                chatId: message.Chat.Id,
-                                parseMode: ParseMode.Markdown,
-                                text: "Select language?",
-                                replyMarkup: MessageBuilder.LanguagesButton()); break;
+                    await getMessageTextBackAsync(client, "Select language", message); break;
                 case "Назад":
-                    await client.SendTextMessageAsync(
-                                chatId: message.Chat.Id,
-                                parseMode: ParseMode.Markdown,
-                                text: "Выберите язык?",
-                                replyMarkup: MessageBuilder.LanguagesButton()); break;
+                    await getMessageTextBackAsync(client, "Выберите язык", message); break;
                 case "Orqaga":
-                    await client.SendTextMessageAsync(
-                                chatId: message.Chat.Id,
-                                parseMode: ParseMode.Markdown,
-                                text: "Tilni tanglang?",
-                                replyMarkup: MessageBuilder.LanguagesButton()); break;
+                    await getMessageTextBackAsync(client, "Tilni tanlang", message); break;
                 case "Today":
                     {
                         var result = await _cache.GetOrUpdatePrayerTimeAsync(
                             message.Chat.Id, _storage.GetUserAsync(message.Chat.Id).Result.Latitude,
                             _storage.GetUserAsync(message.Chat.Id).Result.Longitude);
                         var times = result.prayerTime;
-                        await client.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text: getTimeString(times, message),
-                        parseMode: ParseMode.Markdown,
-                        replyMarkup: MessageBuilder.LocationRequestButton(
-                            _storage.GetUserAsync(message.Chat.Id).Result.Language));
+                        await getMessageTextMShAsync(client, getTimeString(times, message), message);
                     }
                     break;
                 case "Сегодняшний":
@@ -172,12 +139,7 @@ namespace bot
                             message.Chat.Id, _storage.GetUserAsync(message.Chat.Id).Result.Latitude,
                              _storage.GetUserAsync(message.Chat.Id).Result.Longitude);
                         var times = result.prayerTime;
-                        await client.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text: getTimeString(times, message),
-                        parseMode: ParseMode.Markdown,
-                        replyMarkup: MessageBuilder.LocationRequestButton(
-                            _storage.GetUserAsync(message.Chat.Id).Result.Language));
+                        await getMessageTextMShAsync(client, getTimeString(times, message), message);
                     }
                     break;
                 case "Bugungi":
@@ -186,29 +148,16 @@ namespace bot
                             message.Chat.Id, _storage.GetUserAsync(message.Chat.Id).Result.Latitude,
                             _storage.GetUserAsync(message.Chat.Id).Result.Longitude);
                         var times = result.prayerTime;
-                        await client.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text: getTimeString(times, message),
-                        parseMode: ParseMode.Markdown,
-                        replyMarkup: MessageBuilder.LocationRequestButton(
-                            _storage.GetUserAsync(message.Chat.Id).Result.Language)
-                        );
+                        await getMessageTextMShAsync(client, getTimeString(times, message), message);
                     }
                     break;
+                case "Settings":
+                    await getSettingsMessageTextAsync(client, "Do you want change your location?", message); break;
+                case "Настройки":
+                    await getSettingsMessageTextAsync(client, "Хотите изменить локацию?", message); break;
+                case "Sozlamalar":
+                    await getSettingsMessageTextAsync(client, "Lokatsiyangizni o'zgartirmoqchimisiz?", message); break;
             }
-        }
-
-        public string getTimeString(Models.PrayerTime times, Message message)
-        {
-            if (_storage.GetUserAsync(message.Chat.Id).Result.Language == "English")
-            {
-                return $" *Fajr*: {times.Fajr}\n*Sunrise*: {times.Sunrise}\n*Dhuhr*: {times.Dhuhr}\n*Asr*: {times.Asr}\n*Maghrib*: {times.Maghrib}\n*Isha*: {times.Isha}\n\n*Method*: {times.CalculationMethod}";
-            }
-            else if (_storage.GetUserAsync(message.Chat.Id).Result.Language == "Русский")
-            {
-                return $" *Фажр*: {times.Fajr}\n*Восход*: {times.Sunrise}\n*Зухр*: {times.Dhuhr}\n*Аср*: {times.Asr}\n*Магриб*: {times.Maghrib}\n*Иша*: {times.Isha}\n\n*Method*: {times.CalculationMethod}";
-            }
-            return $" *Bomdod*: {times.Fajr}\n*Quyosh chiqishi*: {times.Sunrise}\n*Peshin*: {times.Dhuhr}\n*Asr*: {times.Asr}\n*Shom*: {times.Maghrib}\n*Xufton*: {times.Isha}\n\n*Method*: {times.CalculationMethod}";
         }
     }
 }

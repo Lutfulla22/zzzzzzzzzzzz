@@ -14,6 +14,7 @@ namespace bot
                                 {
                                     new KeyboardButton(){ Text = "Today" },
                                     new KeyboardButton(){ Text = "Back" },
+                                    new KeyboardButton(){ Text= "Settings"},
                                 }
                             },
                 ResizeKeyboard = true
@@ -30,6 +31,7 @@ namespace bot
                                     new List<KeyboardButton>()
                                     {
                                         new KeyboardButton(){ Text = "Bugungi"},
+                                        new KeyboardButton(){ Text= "Sozlamalar"},
                                         new KeyboardButton(){ Text = "Orqaga"},
                                     }
                                 },
@@ -45,6 +47,7 @@ namespace bot
                                     new List<KeyboardButton>()
                                     {
                                         new KeyboardButton(){ Text = "Сегодняшний"},
+                                        new KeyboardButton(){ Text= "Настройки"},
                                         new KeyboardButton(){ Text = "Назад"}
                                     }
                                 },
@@ -58,6 +61,7 @@ namespace bot
                                     new List<KeyboardButton>()
                                     {
                                         new KeyboardButton(){ Text = "Today"},
+                                        new KeyboardButton(){ Text= "Settings"},
                                         new KeyboardButton(){ Text = "Back"}
                                     }
                                 },
@@ -74,7 +78,7 @@ namespace bot
                                 {
                                     new List<KeyboardButton>()
                                     {
-                                        new KeyboardButton(){ Text = "Lokatsiya jo'nati", RequestLocation = true },
+                                        new KeyboardButton(){ Text = "Lokatsiya jo'natish", RequestLocation = true },
                                         new KeyboardButton(){ Text = "Orqaga"},
                                     }
                                 },
